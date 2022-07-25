@@ -19,6 +19,16 @@ dat <- read.csv("GLDS-202_counts_rad_1month.csv", header=T, row.names=1)
 # Load column data
 coldata <- read.table("colData_rad_1month.txt", header=T, sep="\t")
 
+#########################
+# If there are decimals in data, you need to make all the values as integers
+# This is a common problem in GeneLab transcriptomics data
+# install.packages("dplyr") # Install "dplyr" library first from CRAN repository
+# library(dplyr) # Load "dplyr"
+# dat %>% mutate_if(is.numeric, round)
+# dat <- mutate_all(dat, function(x) as.integer(as.character(x)))
+# write.csv(dat, "GLDS-202_counts.csv") # Can export this file
+##########################
+
 # Create DESeq Data matrix object
 dds <- DESeqDataSetFromMatrix(dat, coldata, ~condition)
 
